@@ -63,7 +63,7 @@ jobs:
         elif [ "${{ matrix.version }}" = "gcc16" ]; then
           export USE_GCC16=y
         fi
-        BUILD_TOOLCHAIN=y ENABLE_LTO=y ENABLE_BPF=y ENABLE_MOLD=y bash <(curl -sS ${{ secrets.script_url_general }}) openwrt-25.12 x86_64
+        BUILD_TOOLCHAIN=y ENABLE_LTO=y ENABLE_BPF=y ENABLE_MOLD=y bash <(curl -sS ${{ secrets.script_url_general }}) v25 x86_64
 
     - name: Create release
       uses: ncipollo/release-action@v1.14.0
