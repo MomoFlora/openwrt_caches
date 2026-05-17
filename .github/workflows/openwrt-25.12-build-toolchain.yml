@@ -66,7 +66,7 @@ jobs:
         BUILD_TOOLCHAIN=y ENABLE_LTO=y ENABLE_BPF=y ENABLE_MOLD=y bash <(curl -sS ${{ secrets.script_url_general }}) v25 x86_64
 
     - name: Create release
-      uses: ncipollo/release-action@v1.14.0
+      uses: ncipollo/release-action@main
       with:
         name: openwrt-25.12
         allowUpdates: true
