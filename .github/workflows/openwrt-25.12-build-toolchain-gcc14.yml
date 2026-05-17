@@ -11,15 +11,6 @@ jobs:
         shell: bash
     strategy:
       fail-fast: false
-      matrix:
-        model:
-          - nanopi-r5s
-          - x86_64
-        tag:
-          - type: v25
-            version: openwrt-25.12
-        libc:
-          - musl
 
     steps:
     - name: Checkout
@@ -65,9 +56,9 @@ jobs:
     - name: Create release
       uses: ncipollo/release-action@v1.14.0
       with:
-        name: ${{ matrix.tag.version }}
+        name: openwrt-25.12
         allowUpdates: true
-        tag: ${{ matrix.tag.version }}
+        tag: openwrt-25.12
         commit: openwrt-25.12
         replacesArtifacts: true
         token: ${{ secrets.workflow_token }}
