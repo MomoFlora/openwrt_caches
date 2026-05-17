@@ -1,4 +1,4 @@
-name: openwrt-25.12-gcc14
+name: openwrt-toolchain
 
 on: workflow_dispatch
 
@@ -11,7 +11,12 @@ jobs:
         shell: bash
     strategy:
       fail-fast: false
-
+      matrix:
+        version:
+          - gcc14
+          - gcc15
+          - gcc16
+          
     steps:
     - name: Checkout
       uses: actions/checkout@main
@@ -51,7 +56,14 @@ jobs:
         git_name: MomoFlora
         git_password: ${{ secrets.git_password }}
       run: |
-        BUILD_TOOLCHAIN=y ENABLE_LTO=y ENABLE_BPF=y USE_GCC14=y ENABLE_MOLD=y bash <(curl -sS ${{ secrets.script_url_general }}) openwrt-25.12 x86_64
+        if [ "${{ matrix.version }}" = "gcc14" ]; then
+          export USE_GCC14=y
+        elif [ "${{ matrix.version }}" = "gcc15" ]; then
+          export USE_GCC15=y
+        elif [ "${{ matrix.version }}" = "gcc16" ]; then
+          export USE_GCC16=y
+        fi
+        BUILD_TOOLCHAIN=y ENABLE_LTO=y ENABLE_BPF=y ENABLE_MOLD=y bash <(curl -sS ${{ secrets.script_url_general }}) openwrt-25.12 x86_64
 
     - name: Create release
       uses: ncipollo/release-action@v1.14.0
